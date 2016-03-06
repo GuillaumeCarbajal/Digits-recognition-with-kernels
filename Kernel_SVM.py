@@ -30,8 +30,16 @@ def svm(K , y):
     
    sol = cvxopt.solvers.qp(P,q,G,h,A,b)
    alpha = np.ravel(sol['x'])
-   inter = -0.5*(np.mean(K.dot(alpha)[y==1]) + np.mean(K.dot(alpha)[y!=1])) 
-   print 'je comprends le changement 2'
+   #inter = -0.5*(np.mean(K.dot(alpha)[y==1]) + np.mean(K.dot(alpha)[y!=1])) 
+   #One support vector machine
+   
+   result = 0
+   for i in range(n_samples):
+      result += (K[i].dot(alpha*y))
+
+   inter = np.mean(y) - result / n_samples
+
+   print 'je comprends le changement 4'
    return alpha, inter
    
 
