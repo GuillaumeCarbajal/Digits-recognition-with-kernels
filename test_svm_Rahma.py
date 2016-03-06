@@ -46,11 +46,11 @@ y_train = y[::2]
 y_test = y[1::2]
 
 K_train = pol_kernel(X_train,X_train)
-K_test = pol_kernel(X_train,X_test)
+K_test = pol_kernel(X_test,X_train)
 
 # Train of SVM
 alpha, b = svm(K_train,y_train)
 # Test of SVM
-pred = svm_kernel_predict(K_test, alpha,b)
+pred = svm_kernel_predict(K_test, y_train,alpha,b)
 
 print "Accuracy score: ", me.accuracy_score(y_test,pred) 
