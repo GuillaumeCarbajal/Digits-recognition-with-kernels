@@ -10,7 +10,7 @@ import numpy as np
 
 # Train SVM
 
-def svm(K , y):
+def svm(K , y, C=1.0):
    
    n_samples = len(y)
    P = cvxopt.matrix((np.outer(y, y) * K).tolist())
@@ -19,7 +19,6 @@ def svm(K , y):
    h_std = cvxopt.matrix(np.zeros(n_samples))
 
    # a_i \leq c
-   C =100
    G_slack = cvxopt.matrix(np.diag(np.ones(n_samples)))
    h_slack = cvxopt.matrix(np.ones(n_samples) * C)
    G = cvxopt.matrix(np.vstack((G_std, G_slack)))
@@ -71,3 +70,19 @@ def pol_kernel(X,Y):
       for j, y in enumerate(Y): 
          gram_matrix[i, j] = x[0]*y[0] + x[1]*y[1] + (x[0]**2 + x[1]**2)*(y[0]**2 + y[1]**2) 
    return gram_matrix 
+
+
+def gaussian(X, Y, sigma):
+    gram_matrix = np.zeros((X.shape[0], Y.shape[0])) 
+    for i, x in enumerate(X): 
+        for j, y in enumerate(Y): 
+            exponent = -np.sqrt(la.norm(x-y) ** 2 / (2 * sigma ** 2))
+            gram_matrix[i, j] = np.exp(exponent)
+    return gram_matrix
+
+def inter_kernel(X,Y):
+    gram_matrix = np.zeros((X.shape[0], Y.shape[0]))
+    for i, x in enumerate(X):
+        for j, y in enumerate(Y):
+            gram_matrix[i, j] = np.sum(np.min(np.array([x,y]),axis=0))
+    return gram_matrix
