@@ -97,6 +97,8 @@ def inter_kernel(X,Y):
 
 X_tr, X_te, y_tr, y_te = train_test_split(hog_mat2,y,test_size=0.3)
 
+
+# CVXOPT ne supporte que les format "double", et non "int"
 y_tr = y_tr.astype('double')
 y_te = y_te.astype('double')
 
