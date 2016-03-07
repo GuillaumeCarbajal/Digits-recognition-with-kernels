@@ -6,6 +6,7 @@ Created on Sun Mar 06 12:11:56 2016
 """
 import cvxopt
 import numpy as np
+import numpy.linalg as la
 
 
 # Train SVM
