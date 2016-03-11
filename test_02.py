@@ -46,9 +46,9 @@ for n_l in range(np.shape(G_mat)[0]):
     if(n_l%500==0):
         print n_l
 
-hog_test = np.array(hog_mat)[:,0,:]
+hog_train = np.array(hog_mat)[:,0,:]
 # Adding weights: 4 for hist_list1, 2 for hist_list2 and 1 for hist_list3
-hog_test = np.concatenate([4.0*hog_test[:,:432],2.0*hog_test[:,432:432+108],hog_test[:,432+108:]],axis=1)
+hog_train = np.concatenate([4.0*hog_train[:,:432],2.0*hog_train[:,432:432+108],hog_train[:,432+108:]],axis=1)
 
 
 #Test data
