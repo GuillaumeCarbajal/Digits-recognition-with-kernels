@@ -161,3 +161,19 @@ def plot_digit(X_df, y, value, fig_nb, n_rows=4, n_cols=5, max_iter=200):
             plt.xticks(())
             plt.yticks(())
             temp += 1
+
+####################
+# data augmentation (rotation of the dataset)
+###################
+from scipy import ndimage
+
+def rotate_dataset(data, angle):
+    n_samples, n_features = data.shape
+    new_data = []
+    for i, item in enumerate(data):
+        X = item.reshape(28,28).copy()
+        rotate_X = ndimage.rotate(X, angle, reshape = False)
+        rotate_X = rotate_X.reshape(n_features, 1)
+        new_data.append(rotate_X)
+    new_data = np.array(new_data)
+    return new_data
